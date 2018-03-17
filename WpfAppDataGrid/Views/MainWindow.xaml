@@ -23,19 +23,19 @@
 
         <StackPanel Grid.Row="0" Orientation = "Horizontal">
             <Label Content="Number of users:" />
-            <Label Content="{Binding Path = Users_oc.Count}" />
+            <Label Content="{Binding Path = Users_obsColl.Count}" />
         </StackPanel>
 
         <!--Datagrid example-->
         <StackPanel Grid.Row="1" >
             <Label Content="Datagrid example with users (properties) from C# and SQL" Background="Gold" FontWeight="Bold"/>
-            <DataGrid ItemsSource="{Binding Path = Users_oc}" AutoGenerateColumns="True" CanUserAddRows="False"/>
+            <DataGrid ItemsSource="{Binding Path = Users_obsColl}" AutoGenerateColumns="True" CanUserAddRows="False"/>
         </StackPanel>
         
         <!--Itemscontrol example-->
         <StackPanel Grid.Row="2" >
             <Label Content="ItemsControl example with users (properties) from C# and SQL" Background="Gold" FontWeight="Bold"/>
-            <ItemsControl ItemsSource = "{Binding Path = Users_oc}" >
+            <ItemsControl ItemsSource = "{Binding Path = Users_obsColl}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation = "Horizontal">
@@ -50,8 +50,8 @@
 
         <!--Datagrid Database->Datatable example-->
         <StackPanel Grid.Row="3" >
-            <Label Content="Datagrid example with users from a SQL Datatable" Background="Gold" FontWeight="Bold"/>
-            <DataGrid ItemsSource="{Binding Path = Users_dt}" AutoGenerateColumns="True" CanUserAddRows="False" />
+            <Label Content="Datagrid example with users from only the SQL Datatable" Background="Gold" FontWeight="Bold"/>
+            <DataGrid ItemsSource="{Binding Path = Users_datatable}" AutoGenerateColumns="True" CanUserAddRows="False" />
         </StackPanel>
     </Grid>
 </Window>

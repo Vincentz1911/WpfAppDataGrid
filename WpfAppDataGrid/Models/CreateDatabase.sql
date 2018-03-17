@@ -16,4 +16,4 @@ LoginName nvarchar(50),
 )
 
 truncate table Users
-insert into Users values ('Alba', 'Jessi'), ('JamesBond', '007'),  ('admin', 'admin'), ('YourMom', 'Gay')
+insert into Users values ('Alba', 'Jessi'), ('JamesBond', '007'),  ('admin', 'admin')

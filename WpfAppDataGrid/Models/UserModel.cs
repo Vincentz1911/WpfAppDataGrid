@@ -1,9 +1,11 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace WpfAppDataGrid.Models
 {
-    class UserModel
+    public class UserModel
     {
+
     }
 
     public class User : INotifyPropertyChanged
