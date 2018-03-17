@@ -18,10 +18,12 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation = "Horizontal">
+            <Button Content="Update SQL Server" Name="btnClickSQL" Command="{Binding Path=ButtonCommandSQL}" CommandParameter="{Binding Path = Users_obsColl}" />
+            <Button Content="Number of Users" Name="btnClick" Command="{Binding Path=ButtonCommand}" CommandParameter="{Binding Path = Users_obsColl}" />
             <Label Content="Number of users:" />
             <Label Content="{Binding Path = Users_obsColl.Count}" />
         </StackPanel>
@@ -31,7 +33,7 @@
             <Label Content="Datagrid example with users (properties) from C# and SQL" Background="Gold" FontWeight="Bold"/>
             <DataGrid ItemsSource="{Binding Path = Users_obsColl}" AutoGenerateColumns="True" CanUserAddRows="False"/>
         </StackPanel>
-        
+
         <!--Itemscontrol example-->
         <StackPanel Grid.Row="2" >
             <Label Content="ItemsControl example with users (properties) from C# and SQL" Background="Gold" FontWeight="Bold"/>
