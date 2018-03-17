@@ -6,54 +6,68 @@
         xmlns:local="clr-namespace:WpfAppDataGrid"
         xmlns:ViewModel="clr-namespace:WpfAppDataGrid.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="400">
+        Title="MainWindow" Height="400" Width="800">
 
-    <!--DataContext is taken from UserViewModels Properties-->
+    <!--DataContext for the whole window is taken from UserViewModel-->
     <Window.DataContext>
         <ViewModel:UserViewModel/>
     </Window.DataContext>
 
+    <!--Grid example with Columns and Rows-->
     <Grid>
+        <!--First Column width is 3/5 of window. Second is 2/5-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--First Row height is what is put into it. Second takes the rest-->
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation = "Horizontal">
-            <Button Content="Update SQL Server" Name="btnClickSQL" Command="{Binding Path=ButtonCommandSQL}" CommandParameter="{Binding Path = Users_obsColl}" />
-            <Button Content="Number of Users" Name="btnClick" Command="{Binding Path=ButtonCommand}" CommandParameter="{Binding Path = Users_obsColl}" />
-            <Label Content="Number of users:" />
-            <Label Content="{Binding Path = Users_obsColl.Count}" />
+        <!--Buttons using ICommand-->
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="10">
+            <Label Content="ICommand Button example" Background="Gold" FontWeight="Bold"/>
+            <StackPanel Orientation = "Horizontal">
+                <Button Content="Update SQL Server" Command="{Binding Path=ButtonCommand_UpdateSQL}" CommandParameter="Updated SQL Server" />
+                <Button Content="Add New User" Command="{Binding Path=ButtonCommand_AddUser}" CommandParameter="Added new user" />
+                <Label Content="Number of users:" />
+                <Label Content="{Binding Path = Users_obsColl.Count}" />
+            </StackPanel>
         </StackPanel>
 
-        <!--Datagrid example-->
-        <StackPanel Grid.Row="1" >
-            <Label Content="Datagrid example with users (properties) from C# and SQL" Background="Gold" FontWeight="Bold"/>
-            <DataGrid ItemsSource="{Binding Path = Users_obsColl}" AutoGenerateColumns="True" CanUserAddRows="False"/>
+        <!--ComboBox example-->
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="10">
+            <Label Content="Combobox example" Background="Gold" FontWeight="Bold"/>
+            <ComboBox ItemsSource="{Binding Path = Users_obsColl}" DisplayMemberPath="Combined" SelectedIndex="0" />
         </StackPanel>
 
         <!--Itemscontrol example-->
-        <StackPanel Grid.Row="2" >
-            <Label Content="ItemsControl example with users (properties) from C# and SQL" Background="Gold" FontWeight="Bold"/>
-            <ItemsControl ItemsSource = "{Binding Path = Users_obsColl}" >
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation = "Horizontal">
-                            <TextBox Text = "{Binding Path = LoginName, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" Width = "100" Margin = "5"/>
-                            <TextBox Text = "{Binding Path = Password, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" Width = "100" Margin = "5"/>
-                            <TextBlock Text = "{Binding Path = Combined, Mode = OneWay, UpdateSourceTrigger=PropertyChanged}" Margin = "5"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="0" Margin="10">
+            <StackPanel>
+                <Label Content="ItemsControl example" Background="Gold" FontWeight="Bold"/>
+                <ItemsControl ItemsSource = "{Binding Path = Users_obsColl}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation = "Horizontal">
+                                <TextBox Text = "{Binding Path = LoginName, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" Width = "100" Margin = "5"/>
+                                <TextBox Text = "{Binding Path = Password, Mode = TwoWay, UpdateSourceTrigger=PropertyChanged}" Width = "100" Margin = "5"/>
+                                <TextBlock Text = "{Binding Path = Combined, Mode = OneWay, UpdateSourceTrigger=PropertyChanged}" Margin = "5"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
 
-        <!--Datagrid Database->Datatable example-->
-        <StackPanel Grid.Row="3" >
-            <Label Content="Datagrid example with users from only the SQL Datatable" Background="Gold" FontWeight="Bold"/>
-            <DataGrid ItemsSource="{Binding Path = Users_datatable}" AutoGenerateColumns="True" CanUserAddRows="False" />
-        </StackPanel>
+        <!--Datagrid example-->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" Margin="10">
+            <StackPanel>
+                <Label Content="Datagrid example" Background="Gold" FontWeight="Bold"/>
+                <DataGrid ItemsSource="{Binding Path = Users_obsColl}" CanUserAddRows="False" />
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>

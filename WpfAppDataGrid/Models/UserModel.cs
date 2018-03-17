@@ -1,24 +1,15 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace WpfAppDataGrid.Models
 {
-    public class UserModel
+    class UserModel
     {
 
     }
 
-    public class User : INotifyPropertyChanged
+    class User : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(string property)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(property));
-            }
-        }
-
+        //Properties
         private string loginName;
         public string LoginName
         {
@@ -29,9 +20,10 @@ namespace WpfAppDataGrid.Models
                 if (loginName != value)
                 {
                     loginName = value;
-                    NotifyPropertyChanged("LoginName");
-                    NotifyPropertyChanged("Combined");
+                    OnPropertyChanged("LoginName");
+                    OnPropertyChanged("Combined");
                 }
+                else { loginName = "Login"; }
             }
         }
 
@@ -45,12 +37,25 @@ namespace WpfAppDataGrid.Models
                 if (password != value)
                 {
                     password = value;
-                    NotifyPropertyChanged("Password");
-                    NotifyPropertyChanged("Combined");
+                    OnPropertyChanged("Password");
+                    OnPropertyChanged("Combined");
                 }
+                else { password = "Pass"; }
             }
         }
 
         public string Combined { get { return loginName + " " + password; } }
+
+
+        //INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+            }
+        }
     }
+
 }
