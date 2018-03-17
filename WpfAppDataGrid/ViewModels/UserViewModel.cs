@@ -13,6 +13,7 @@ namespace WpfAppDataGrid.ViewModels
         //ICommand buttons property, so accessible from View
         public ICommand ButtonCommand_AddUser { get; set; }
         public ICommand ButtonCommand_UpdateSQL { get; set; }
+
         //ObservableCollection list used for datacontect in View
         public ObservableCollection<Models.User> Users_obsColl { get; set; }
 
@@ -39,7 +40,7 @@ namespace WpfAppDataGrid.ViewModels
         //Add user and updates Users_oc with datatable from SQL2Datatable()
         private void Datatable2List()
         {
-            SQL2Datatable();
+            SQL2Datatable(); //Gets Datatable from SQL Server
             for (int i = 0; i < Users_datatable.Rows.Count; i++)
             {
                 users.Add(new Models.User
@@ -79,6 +80,7 @@ namespace WpfAppDataGrid.ViewModels
             cmd.Parameters.AddWithValue("@LoginName", DbType.String);
             cmd.Parameters.AddWithValue("@Password", DbType.String);
 
+            //Adds an ExecuteNonQuery for each object in ObservableCollection list. Could use Transaction instead
             foreach (var item in Users_obsColl)
             {
                 cmd.Parameters[0].Value = item.LoginName;
@@ -86,7 +88,6 @@ namespace WpfAppDataGrid.ViewModels
                 cmd.ExecuteNonQuery();
             }
             con.Close();
-            SQL2Datatable();
         }
     }
 
